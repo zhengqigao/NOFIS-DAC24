@@ -116,73 +116,7 @@ def powell(x):
 
 
 def get_testcase(index, device=torch.device("cpu")):
-    if index == 1:
-        dim_x = 2
-        dim_y = 1
-        thred = torch.Tensor([[-np.inf, ], [0.001, ]]).to(device)
-        mean, cov = torch.zeros(dim_x).to(device), torch.diag(torch.ones(dim_x)).to(device)
-        mn_function = MultivariateNormal(mean, cov)
-        simulator = lambda x: compute_U1(x).reshape(-1, dim_y)
-
-        log_px = lambda x: mn_function.log_prob(x)
-        sampler = lambda num_sample: mn_function.sample(sample_shape=(num_sample,))
-
-    elif index == 2:
-        dim_x = 2
-        dim_y = 1
-        thred = torch.Tensor([[-np.inf, ], [0, ]]).to(device)
-        mean, cov = torch.zeros(dim_x).to(device), torch.diag(torch.ones(dim_x)).to(device)
-        mn_function = MultivariateNormal(mean, cov)
-        simulator = lambda x: torch.min((x[:, 0] + 3.8) ** 2 + (x[:, 1] + 3.8) ** 2 - 1,
-                                        (x[:, 0] - 3.8) ** 2 + (x[:, 1] - 3.8) ** 2 - 1).reshape(-1, dim_y)
-
-        log_px = lambda x: mn_function.log_prob(x)
-        sampler = lambda num_sample: mn_function.sample(sample_shape=(num_sample,))
-
-    elif index == 3:
-        dim_x = 2
-        dim_y = 1
-        thred = torch.Tensor([[-1e15, ], [0.001, ]]).to(device)
-        mean, cov = torch.zeros(dim_x).to(device), torch.diag(torch.ones(dim_x)).to(device)
-        mn_function = MultivariateNormal(mean, cov)
-        simulator = lambda x: customized_potential(x).reshape(-1, dim_y)
-        log_px = lambda x: mn_function.log_prob(x)
-        sampler = lambda num_sample: mn_function.sample(sample_shape=(num_sample,))
-
-    elif index == 4:
-        dim_x = 2
-        dim_y = 1
-        thred = torch.Tensor([[-np.inf, ], [-0.6, ]]).to(device)
-        mean, cov = torch.zeros(dim_x).to(device), torch.diag(torch.ones(dim_x)).to(device)
-        mn_function = MultivariateNormal(mean, cov)
-        simulator = lambda x: compute_U3(x, bias=2.4).reshape(-1, dim_y)
-
-        log_px = lambda x: mn_function.log_prob(x)
-        sampler = lambda num_sample: mn_function.sample(sample_shape=(num_sample,))
-
-    # 2D Gaussian, integral region is an ellipsoid
-    elif index == 5:
-        dim_x = 2
-        dim_y = 1
-        thred = torch.Tensor([[16, ], [20.25, ]]).to(device)
-        mean, cov = torch.zeros(dim_x).to(device), torch.diag(torch.ones(dim_x)).to(device)
-        mn_function = MultivariateNormal(mean, cov)
-        simulator = lambda x: customized_ring(x).reshape(-1, dim_y)
-        log_px = lambda x: mn_function.log_prob(x)
-        sampler = lambda num_sample: mn_function.sample(sample_shape=(num_sample,))
-
-    # 2D Gaussian, integral at a heart shape
-    elif index == 6:
-        dim_x = 2
-        dim_y = 1
-        thred = torch.Tensor([[-50, ], [-40, ]]).to(device)
-        mean, cov = torch.zeros(dim_x).to(device), torch.diag(torch.ones(dim_x)).to(device)
-        mn_function = MultivariateNormal(mean, cov)
-        simulator = lambda x: customized_heart(x[:, 0], x[:, 1]).reshape(-1, dim_y)
-        log_px = lambda x: torch.exp(mn_function.log_prob(x))
-        sampler = lambda num_sample: mn_function.sample(sample_shape=(num_sample,))
-
-    elif index == 101:
+    if index == 101:
         dim_x = 10
         dim_y = 1
         thred = torch.Tensor([[3.48, ], [3.52, ]]).to(device)
@@ -209,16 +143,6 @@ def get_testcase(index, device=torch.device("cpu")):
         mn_function = MultivariateNormal(mean, cov)
         simulator = lambda x: torch.min((x[:, 0] + 3.8) ** 2 + (x[:, 1] + 3.8) ** 2 - 1,
                                         (x[:, 0] - 3.8) ** 2 + (x[:, 1] - 3.8) ** 2 - 1).reshape(-1, dim_y)
-
-        log_px = lambda x: mn_function.log_prob(x)
-        sampler = lambda num_sample: mn_function.sample(sample_shape=(num_sample,))
-    elif index == 104:  # We know the analytical golden result (integral of Gaussian)
-        dim_x = 2
-        dim_y = 1
-        thred = torch.Tensor([[-np.inf, ], [0, ]]).to(device)
-        mean, cov = torch.zeros(dim_x).to(device), torch.diag(torch.ones(dim_x)).to(device)
-        mn_function = MultivariateNormal(mean, cov)
-        simulator = lambda x: torch.max(4 - x[:, 0], 4 - x[:, 1]).reshape(-1, dim_y)
 
         log_px = lambda x: mn_function.log_prob(x)
         sampler = lambda num_sample: mn_function.sample(sample_shape=(num_sample,))
