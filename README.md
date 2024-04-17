@@ -12,8 +12,12 @@ To justify the reproducibility of our results, please run the code on the synthe
 
 ## Quick Usage
 
+To reproduce the numerical results, please check the `./exp/exp1.sh`, or directly run the following command:
+
 ```bash
-python main_nofis.py --gpu 0 --testcase 101 --plt_fig save --save_data 1 --save_path ./results/
+# notice that the results will be directly stored under $res
+$res=./results/case101/
+python main_nofis.py --gpu 0 --testcase 101 --plt_fig save --save_data 1 --save_path $res
 ```
 
-Please check the `exp` folder for more details.
+To reproduce the 2D visualization results, please check the `./exp/exp_visual.sh`. We have prepared a few pretrained models under the `results` folder, so that now you can directly use `./exp/exp_visual.sh` to do visualizations. In addition, please feel free to try running `./exp/exp2.sh` yourself for obtaining extra results under different random seeds obtain extra visualizations.
