@@ -15,3 +15,5 @@ To justify the reproducibility of our results, please run the code on the synthe
 ```bash
 python main_nofis.py --gpu 0 --testcase 101 --plt_fig save --save_data 1 --save_path ./results/
 ```
+
+Please check the `exp` folder for more details.

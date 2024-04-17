@@ -1,0 +1,19 @@
+{
+  "nblk": 8,
+  "learning_rate": 1e-4,
+  "batch_num": 1000,
+  "threshold": [
+                        [[-1e15],[1e15]],
+                        [[1],[25]],
+                        [[4],[25]],
+                        [[9],[25]],
+                        [[12.25],[25]],
+                        [[16],[20.25]]
+  ],
+  "temperature": 20.0,
+  "epoch": 400,
+  "eval_num": 50,
+  "hidden_dims": [128,128,128],
+  "freeze": 1,
+  "scheduler": "none"
+}
